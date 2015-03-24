@@ -3,8 +3,79 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
+<style>
+	#box {
+		width: 600px;
+		height: 220px;
+		padding:15px 30px 30px 30px;
+		margin:30px;
+		background-color: #f39c12;
+	}
+
+	#box h1 {
+		color:#fff;
+		text-shadow:
+		-1px -1px #000,
+		1px -1px #000,
+		-1px 1px #000,
+		1px 1px #000;
+	}
+	
+	#box p {
+		text-align: center;
+	}
+
+	#number {
+		list-style-type: none;
+		padding-left: 0px;
+	}
+
+	#number li {
+		display: inline;
+	}
+
+	#answer {
+	}
+
+	#answer li {
+		list-style-type: none;
+		display: inline-block;
+	}
+
+	.yes {
+		width:240px;
+		height:40px;
+		background-color: #e74c3c;
+	}
+
+	.no {
+		width:240px;
+		height:40px;
+		margin-left: 40px;
+		background-color: #399adc;
+	}
+
+</style>
+
 </head>
 <body>
-	jquerytest
+	<div id="box">
+		<h1>診断テスト</h1>
+		<ul id="number">
+			<li>1</li> /
+			<li>2</li> /
+			<li>3</li> /
+			<li>4</li> /
+			<li>5</li> /
+		</ul>
+		<h2>Q1</h2>
+		<p>朝起きるのが苦手だ</p>
+		<form action="index.html" id="answer">
+			<ul>
+				<li class="yes">yes</li>
+				<li class="no">no</li>
+			</ul>
+		</form>
+	</div>
 </body>
 </html>
