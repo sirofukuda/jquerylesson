@@ -8,9 +8,10 @@
 
 		var selectArray = [-1,-1,-1];
 		var scoreArray = [0, 0, 0]
+		qNum = selectArray.length;
 
 		function quesFunc(){
-				//クリックしたリストのidを"_"で分割し、selectArrayの配列にぶち込む
+				// クリックしたリストのidを"_"で分割し、selectArrayの配列にぶち込む
 				var idArray = this.id.split("_");
 				//問題番号はidArrayの最初に
 				var qID = Number(idArray[0]);
@@ -21,13 +22,37 @@
 				$("#" + qID + "_" + ansID ).addClass("selected");
 				$("#" + qID + "_" + selectID).removeClass("selected");
 				selectArray[qID] = ansID;
+				moveFunc(qID);
 
 				scoreArray[qID] = Number($(this).attr("sc"));
-				alert(scoreArray);
+				
+				if (qID+1 >= qNum) resultFunc();
 
-				qNum = selectArray.length;
+		}
 
-				moveFunc(qID);
+		function resultFunc(){
+				var totalScore = 0;
+				for (var i in scoreArray){
+					totalScore += scoreArray[i];
+				};
+
+				switch (true){
+					case totalScore >= 30:
+						$("#resultText").html("あかんやつ");
+						break;
+					case totalScore >= 20:
+						$("#resultText").html("だめなやつ");
+						break;
+					case totalScore >= 10:
+						$("#resultText").html("うい");
+						break;
+					case totalScore >= 0:
+						$("#resultText").html("へいよ");
+						break;
+					default:
+						$("#resultText").html("ok");
+				}
+
 		}
 
 		function moveFunc(vol){
@@ -39,8 +64,10 @@
 		}
 
 		$(function(){
-			$("ul>li").click(quesFunc);
+			$(".witch>li").click(quesFunc);
 		});
+
+
 
 	</script>
 <style>
@@ -73,9 +100,17 @@
 
 	.number li {
 		display: inline;
+		color:#fff
 	}
 
-	.answer {
+	.color {
+		color:#000 !important;
+		border-bottom:solid 1px;
+	}
+
+	.qNum {
+		font-size: 24px;
+		font-weight: bold
 	}
 
 	.answer li {
@@ -110,7 +145,7 @@
 
 	#qContainer {
 		position:relative;
-		width: 2160px;
+		width: 3000px;
 	}
 
 	#qArea {
@@ -129,16 +164,14 @@
 	<div class="box">
 		<h1>診断テスト</h1>
 		<ul class="number">
-			<li>1</li> /
+			<li class="color">1</li> /
 			<li>2</li> /
-			<li>3</li> /
-			<li>4</li> /
-			<li>5</li> /
+			<li>3</li> 
 		</ul>
-		<h2>Q1</h2>
+		<span class="qNum">Q1</span>
 		<p>朝起きるのが苦手だ</p>
 		<form action="index.html" class="answer">
-			<ul>
+			<ul class="witch">
 				<li id="0_0" class="yes" sc="10"></li>
 				<li id="0_1" class="no" sc="0"></li>
 			</ul>
@@ -149,15 +182,13 @@
 		<h1>診断テスト</h1>
 		<ul class="number">
 			<li>1</li> /
-			<li>2</li> /
-			<li>3</li> /
-			<li>4</li> /
-			<li>5</li> /
+			<li class="color">2</li> /
+			<li>3</li> 
 		</ul>
-		<h2>Q1</h2>
+		<span class="qNum">Q2</span>
 		<p>朝起きるのが苦手だ</p>
 		<form action="index.html" class="answer">
-			<ul>
+			<ul class="witch">
 				<li id="1_0" class="yes" sc="10"></li>
 				<li id="1_1" class="no" sc="0"></li>
 			</ul>
@@ -169,18 +200,21 @@
 		<ul class="number">
 			<li>1</li> /
 			<li>2</li> /
-			<li>3</li> /
-			<li>4</li> /
-			<li>5</li> /
+			<li class="color">3</li>
 		</ul>
-		<h2>Q1</h2>
+		<span class="qNum">Q3</span>
 		<p>朝起きるのが苦手だ</p>
 		<form action="index.html" class="answer">
-			<ul>
+			<ul class="witch">
 				<li id="2_0" class="yes" sc="10"></li>
 				<li id="2_1" class="no" sc="0"></li>
 			</ul>
 		</form>
+	</div>
+	<div class="box">
+		<h3>結果</h3>
+		<div id="resultText"></div>
+
 	</div>
 </div>
 </body>
