@@ -3,6 +3,17 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
+	<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+	<script>
+		$(function(){
+			var selectID;
+			$("ul>li").click(function(){
+				$(this).addClass("selected");
+				$("#"+ selectID).removeClass("selected");
+				selectID = this.id;
+			});
+		})
+	</script>
 <style>
 	#box {
 		width: 600px;
@@ -45,14 +56,24 @@
 	.yes {
 		width:240px;
 		height:40px;
-		background-color: #e74c3c;
+		background: url(img/yes.png);
+		cursor: pointer;
 	}
 
 	.no {
 		width:240px;
 		height:40px;
 		margin-left: 40px;
-		background-color: #399adc;
+		background: url(img/no.png);
+		cursor: pointer;
+	}
+
+	li:hover {
+	background-position: 0px -40px;		
+	}
+
+	ul .selected {
+	background-position: 0px -80px;		
 	}
 
 </style>
@@ -72,8 +93,8 @@
 		<p>朝起きるのが苦手だ</p>
 		<form action="index.html" id="answer">
 			<ul>
-				<li class="yes">yes</li>
-				<li class="no">no</li>
+				<li id="1_1" class="yes"></li>
+				<li id="1_2" class="no"></li>
 			</ul>
 		</form>
 	</div>
