@@ -5,25 +5,55 @@
 	<title>Document</title>
 	<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 	<script>
+
+		var selectArray = [-1,-1,-1];
+		var scoreArray = [0, 0, 0]
+
+		function quesFunc(){
+				//クリックしたリストのidを"_"で分割し、selectArrayの配列にぶち込む
+				var idArray = this.id.split("_");
+				//問題番号はidArrayの最初に
+				var qID = Number(idArray[0]);
+				//回答番号をidArrayの後半に
+				var ansID = Number(idArray[1]);	
+				var selectID = selectArray[qID];
+				if (ansID == selectID) return;
+				$("#" + qID + "_" + ansID ).addClass("selected");
+				$("#" + qID + "_" + selectID).removeClass("selected");
+				selectArray[qID] = ansID;
+
+				scoreArray[qID] = Number($(this).attr("sc"));
+				alert(scoreArray);
+
+				qNum = selectArray.length;
+
+				moveFunc(qID);
+		}
+
+		function moveFunc(vol){
+				var qPos = (vol+1) * -720;
+				$("#qContainer").animate({left: qPos}, {
+			    'duration': 600,
+			    'easing': 'linear'
+				});			
+		}
+
 		$(function(){
-			var selectID;
-			$("ul>li").click(function(){
-				$(this).addClass("selected");
-				$("#"+ selectID).removeClass("selected");
-				selectID = this.id;
-			});
-		})
+			$("ul>li").click(quesFunc);
+		});
+
 	</script>
 <style>
-	#box {
+	.box {
 		width: 600px;
 		height: 220px;
 		padding:15px 30px 30px 30px;
 		margin:30px;
 		background-color: #f39c12;
+		float:left;
 	}
 
-	#box h1 {
+	.box h1 {
 		color:#fff;
 		text-shadow:
 		-1px -1px #000,
@@ -32,23 +62,23 @@
 		1px 1px #000;
 	}
 	
-	#box p {
+	.box p {
 		text-align: center;
 	}
 
-	#number {
+	.number {
 		list-style-type: none;
 		padding-left: 0px;
 	}
 
-	#number li {
+	.number li {
 		display: inline;
 	}
 
-	#answer {
+	.answer {
 	}
 
-	#answer li {
+	.answer li {
 		list-style-type: none;
 		display: inline-block;
 	}
@@ -69,20 +99,36 @@
 	}
 
 	li:hover {
-	background-position: 0px -40px;		
+		background-position: 0px -40px;		
 	}
 
 	ul .selected {
-	background-position: 0px -80px;		
+		background-position: 0px -80px;		
+	}
+
+	/* 実質表示 */
+
+	#qContainer {
+		position:relative;
+		width: 2160px;
+	}
+
+	#qArea {
+		width:660px;
+		height:325px;
+		overflow: hidden;
 	}
 
 </style>
 
 </head>
 <body>
-	<div id="box">
+
+<div id="qArea">
+<div id="qContainer">
+	<div class="box">
 		<h1>診断テスト</h1>
-		<ul id="number">
+		<ul class="number">
 			<li>1</li> /
 			<li>2</li> /
 			<li>3</li> /
@@ -91,12 +137,51 @@
 		</ul>
 		<h2>Q1</h2>
 		<p>朝起きるのが苦手だ</p>
-		<form action="index.html" id="answer">
+		<form action="index.html" class="answer">
 			<ul>
-				<li id="1_1" class="yes"></li>
-				<li id="1_2" class="no"></li>
+				<li id="0_0" class="yes" sc="10"></li>
+				<li id="0_1" class="no" sc="0"></li>
 			</ul>
 		</form>
 	</div>
+
+	<div class="box">
+		<h1>診断テスト</h1>
+		<ul class="number">
+			<li>1</li> /
+			<li>2</li> /
+			<li>3</li> /
+			<li>4</li> /
+			<li>5</li> /
+		</ul>
+		<h2>Q1</h2>
+		<p>朝起きるのが苦手だ</p>
+		<form action="index.html" class="answer">
+			<ul>
+				<li id="1_0" class="yes" sc="10"></li>
+				<li id="1_1" class="no" sc="0"></li>
+			</ul>
+		</form>
+	</div>
+
+	<div class="box">
+		<h1>診断テスト</h1>
+		<ul class="number">
+			<li>1</li> /
+			<li>2</li> /
+			<li>3</li> /
+			<li>4</li> /
+			<li>5</li> /
+		</ul>
+		<h2>Q1</h2>
+		<p>朝起きるのが苦手だ</p>
+		<form action="index.html" class="answer">
+			<ul>
+				<li id="2_0" class="yes" sc="10"></li>
+				<li id="2_1" class="no" sc="0"></li>
+			</ul>
+		</form>
+	</div>
+</div>
 </body>
 </html>
